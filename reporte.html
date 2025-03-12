@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte de Contenedores</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+       body { font-family: Arial, sans-serif; margin: 20px; }
+        .report-container { width: 100%; border-collapse: collapse; margin-bottom: 20px; border: 1px solid black; page-break-inside: avoid; }
+        .report-container th, .report-container td { border: 1px solid black; padding: 10px; text-align: left; vertical-align: top; }
+        .report-header { font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 10px; }
+        .img-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .img-container img { width: auto; height: 200px;  }
+        .btn-print { background-color: #28a745; color: white; padding: 10px; border: none; cursor: pointer; margin-bottom: 20px; }
+
+        .left-col { width: 35%; background-color: #f0f0f0; }
+        .right-col { width: 65%; text-align: center; }
+
+        /* 🔹 Ocultar el botón al imprimir */
+        @media print {
+            .btn-print {
+                display: none !important;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-print" onclick="window.print()">Imprimir Reporte</button>
+
+    <h2 class="report-header">CONTROL DE PESO DIARIO</h2>
+    <h3 class="report-header">PROYECTO: CIUDAD DE LA SALUD - CAJA DE SEGURO SOCIAL</h3>
+
+    <div id="report-content"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const reportData = JSON.parse(localStorage.getItem("reporteData"));
+            if (!reportData) {
+                document.getElementById("report-content").innerHTML = "<p>No hay datos para mostrar.</p>";
+                return;
+            }
+
+            let html = "";
+            let bloquesEnPagina = 0;
+            let fotoCount = 1; // 🔹 Contador de Fotografías Global
+
+            reportData.forEach((item) => {
+                if (bloquesEnPagina >= 2) {
+                    html += `<div class="page-break"></div>`; // 🔹 Genera una nueva página cada 2 bloques
+                    bloquesEnPagina = 0;
+                }
+
+                // 🔹 SECCIÓN INTERCAMBIO DE CONTENEDORES
+                if (item.intercambio.imagenes.length > 0) {
+                    html += `
+                        <table class="report-container">
+                            <tr>
+                                <th class="left-col">Fotografía ${fotoCount}</th>
+                                <td class="right-col" rowspan="5">
+                                    <div class="img-container">
+                                        ${item.intercambio.imagenes.map(img => `<img src="${img}" alt="Imagen">`).join("")}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td class="left-col"><b>Ubicación:</b> ${item.ubicacion}</td></tr>
+                            <tr><td class="left-col"><b>Generador:</b> Hospimed</td></tr>
+                            <tr><td class="left-col"><b>Fecha:</b> ${item.fecha}</td></tr>
+                            <tr><td class="left-col"><b>Comentarios:</b> Intercambio de contenedores con desechos por contenedores limpios.</td></tr>
+                        </table>
+                    `;
+                    bloquesEnPagina++;
+                    fotoCount++; // 🔹 Incrementa el contador global de fotografías
+                }
+
+                // 🔹 SECCIÓN PESAJE DE CONTENEDORES
+                if (item.pesaje.imagenesPeso.length > 0 || item.pesaje.imagenesTacho.length > 0) {
+                    if (bloquesEnPagina >= 2) {
+                        html += `<div class="page-break"></div>`; // 🔹 Genera una nueva página cada 2 bloques
+                        bloquesEnPagina = 0;
+                    }
+
+                    html += `
+                        <table class="report-container">
+                            <tr>
+                                <th class="left-col">Fotografía ${fotoCount}</th>
+                                <td class="right-col" rowspan="5">
+                                    <div class="img-container">
+                                        ${item.pesaje.imagenesPeso.map(img => `<img src="${img}" alt="Peso">`).join("")}
+                                    </div>
+                                    <div class="img-container">
+                                        ${item.pesaje.imagenesTacho.map(img => `<img src="${img}" alt="Tacho">`).join("")}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><td class="left-col"><b>Ubicación:</b> ${item.ubicacion}</td></tr>
+                            <tr><td class="left-col"><b>Generador:</b> Hospimed</td></tr>
+                            <tr><td class="left-col"><b>Fecha:</b> ${item.fecha}</td></tr>
+                            <tr><td class="left-col"><b>Comentarios:</b> Pesaje de contenedores con desechos.</td></tr>
+                        </table>
+                    `;
+                    bloquesEnPagina++;
+                    fotoCount++; // 🔹 Incrementa el contador global de fotografías
+                }
+            });
+
+            document.getElementById("report-content").innerHTML = html;
+        });
+    </script>
+</body>
+</html>

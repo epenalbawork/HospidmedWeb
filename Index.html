@@ -2,57 +2,96 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Ejemplo Agrupación por Ubicación</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestión de Tachos - Hospimed</title>
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="Styles.css" />
 </head>
 <body>
+  <!-- Header -->
+  <header class="bg-primary text-white py-3 mb-4">
+    <div class="container">
+      <div class="d-flex align-items-center">
+        <i class="las la-hospital la-2x mr-2"></i>
+        <h1 class="h4 mb-0">Sistema de Gestión de Tachos</h1>
+      </div>
+    </div>
+  </header>
+
   <div class="content-body">
     <div class="card">
       <div class="card-content">
         <div class="card-body">
           <!-- FILTROS PARA LOS TACHOS -->
           <div class="filters-container">
+            <h2 class="h5 mb-4">Filtros de Búsqueda</h2>
             <form id="filter-form" class="mb-3">
               <div class="row">
                 <div class="col-md-3">
-                  <label class="text-bold-600">Desde</label>
-                  <input type="date" name="fechaDesde" class="form-control form-control-sm" />
+                  <label for="fechaDesde" class="text-bold-600">Desde</label>
+                  <input 
+                    type="date" 
+                    id="fechaDesde"
+                    name="fechaDesde" 
+                    class="form-control form-control-sm"
+                    title="Fecha inicial para filtrar"
+                    aria-label="Fecha inicial" />
                 </div>
                 <div class="col-md-3">
-                  <label class="text-bold-600">Hasta</label>
-                  <input type="date" name="fechaHasta" class="form-control form-control-sm" />
+                  <label for="fechaHasta" class="text-bold-600">Hasta</label>
+                  <input 
+                    type="date" 
+                    id="fechaHasta"
+                    name="fechaHasta" 
+                    class="form-control form-control-sm"
+                    title="Fecha final para filtrar"
+                    aria-label="Fecha final" />
                 </div>
-                <div class="col-md-3">
-                  <label class="text-bold-600">Operario</label>
-                  <select id="operarioSelect" name="operario" class="form-control form-control-sm">
+                <div class="col-md-3" style="display:none;">
+                  <label for="operarioSelect" class="text-bold-600">Operario</label>
+                  <select 
+                    id="operarioSelect" 
+                    name="operario" 
+                    class="form-control form-control-sm"
+                    title="Seleccione un operario"
+                    aria-label="Selección de operario">
                     <option value="">[Todos los Operarios]</option>
                   </select>
                 </div>
-                <div class="col-md-6 text-right" style="margin-top: 26px;">
-                  <button type="submit" class="btn btn-success btn-sm">Buscar</button>
-                  <button id="generate-report-btn" type="button" class="btn btn-primary btn-sm">Generar Reporte</button>
+                <div class="col-md-3 text-right" style="margin-top: 26px;">
+                  <button type="submit" class="btn btn-success btn-sm">
+                    <i class="las la-search"></i> Buscar
+                  </button>
+                  <button id="generate-report-btn" type="button" class="btn btn-primary btn-sm">
+                    <i class="las la-file-pdf"></i> Generar Reporte
+                  </button>
                 </div>
               </div>
             </form>
           </div>
 
           <!-- TABLA DE TACHOS E IMÁGENES -->
+          <div class="d-flex align-items-center mb-3">
+            <i class="las la-weight text-primary mr-2"></i>
+            <h2 class="h4 mb-0">Tabla de Intercambio</h2>
+          </div>
           <div class="table-responsive" id="table-container">
             <!-- Se inyectará la tabla de tachos dinámicamente -->
           </div>
 
-          <hr> <!-- Línea separadora para mejor organización -->
+          <hr class="my-4">
 
           <!-- NUEVA SECCIÓN: TABLA DE PESOS -->
-          <h4 class="mt-4">Tabla de Pesos</h4>
+          <div class="d-flex align-items-center mb-3">
+            <i class="las la-weight text-primary mr-2"></i>
+            <h2 class="h4 mb-0">Tabla de Pesos</h2>
+          </div>
           <div class="table-responsive" id="table-peso-container">
             <!-- Se inyectará la tabla de pesos dinámicamente -->
           </div>
-
         </div>
       </div>
     </div>
@@ -64,8 +103,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  <script src="script.js"></script> <!-- Script de tachos -->
-  <script src="script_peso.js"></script> <!-- Nuevo script para la tabla de pesos -->
-  <script src="report.js"></script> <!-- Generación de reportes -->
+  <script src="script.js"></script>
+  <script src="script_peso.js"></script>
+  <script src="report.js"></script>
 </body>
 </html>

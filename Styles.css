@@ -1,21 +1,158 @@
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --success-color: #2ecc71;
+  --background-color: #f5f6fa;
+  --card-background: #ffffff;
+  --text-color: #2c3e50;
+  --border-color: #e1e8ed;
+}
+
 body {
-    background-color: #f8f9fa;
-  }
-  
+  background-color: var(--background-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-color);
+}
+
+.content-body {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--card-background);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.filters-container {
+  background: var(--card-background);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+.form-control {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.btn {
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.btn-primary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  font-size: 0.9rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--card-background);
+}
+
+.table thead th {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  padding: 1rem;
+  border: none;
+}
+
+.table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.group-header {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.text-bold-600 {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+h4 {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.table-responsive {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+hr {
+  border-top: 1px solid var(--border-color);
+  margin: 2rem 0;
+}
+
+/* Accessibility improvements */
+.form-control:focus,
+select:focus {
+  outline: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
   .content-body {
-    padding: 20px;
+      padding: 1rem;
   }
   
-  .table {
-    font-size: 14px;
+  .card-body {
+      padding: 1rem;
   }
   
-  .group-header {
-    background-color: #e9ecef;
-    font-weight: bold;
+  .filters-container {
+      padding: 1rem;
   }
   
-  .text-bold-600 {
-    font-weight: 600;
+  .btn {
+      width: 100%;
+      margin-bottom: 0.5rem;
   }
   
+  .table-responsive {
+      margin: 0 -1rem;
+  }
+}
